@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <title>Yaş Hesaplama</title>
+
+    <style>
+
+         h1{
+            margin: 0 0 20px -15px;
+        }
+
+       
+        .yasHesaplama{
+            margin: 50px auto;
+            width: 300px;
+        }
+        .text{
+            width: 170px;
+            height: 22px;
+            text-align: center;
+            font-size: 20px;
+        }
+        .yazi{
+            font-size: 20px;
+        }
+        #btnHesapla{
+            width: 130px;
+            height: 30px;
+            margin: 10px 0 0 20px;
+            font-size: 20px;
+            color:black;
+            background-color:white;
+            border-radius: 15px;
+            border:2px solid #000;
+
+        }
+        #btnHesapla:hover{
+            cursor: pointer;
+            background-color: wheat;
+        }
+
+        .yasiniz{
+            font-size: 22px;
+
+        }
+
+        #sonuc{
+            font-size: 22px;
+        }
+    </style>
+
+</head>
+<body onload="baslangic()">
+    <div class="yasHesaplama">
+        <div>
+            <h1>Yaş Hesaplama</h1>
+
+        </div>
+
+
+        <div>
+            <span class="yazi">Ad:</span> <br>
+            <input type="text" class="text" id="ad">
+        </div>
+        <br>
+
+        <div>
+            <span class="yazi">Soyad: </span> <br>
+            <input type="text" class="text" id="soyad">
+        </div>
+        <br>
+
+        <div>
+            <span class="yazi"> Doğum Tarihi:</span> <br>
+            <input type="date" name="" value="2000-01-01"  class="text" id="dogumTarihi">
+        </div>
+        <br>
+
+        <div id="sonucYeri">
+            <span class="yasiniz">
+                Yaşınız :  
+            </span> <br>
+
+            <span > 
+               <input type="text" class="text" disabled id="sonuc" >
+            </span>
+        </div> <br>
+
+        <div>
+            <input type="button" value="Hesapla"  onclick="tiklama()" id="btnHesapla">
+        </div> 
+
+
+    </div>
+
+    <script>
+
+            var txtAd = document.getElementById("ad");
+            var txtSoyad = document.getElementById("soyad");
+            var dtpDoguömTarihi = document.getElementById("dogumTarihi");
+            var txtSonuc = document.getElementById("sonuc");
+            var sonucYeri =document.getElementById("sonucYeri");
+            var btnHesapla =document.getElementById("btnHesapla");
+
+
+        function baslangic(){
+            sonucYeri.style.display="none";
+            
+        }
+        function tiklama(){
+ 
+          boslukKontrol();
+        }
+
+        function boslukKontrol(){
+
+            
+            txtAd.style.backgroundColor="White";
+            txtSoyad.style.backgroundColor="White";
+
+
+            if(txtSoyad.value==""){
+               
+                txtSoyad.style.backgroundColor="Red";
+                txtSoyad.focus();
+
+            }
+
+
+            if(txtAd.value==""){
+                txtAd.style.backgroundColor="Red";
+                txtAd.focus();
+            
+            }
+
+            if(txtAd.value!="" && txtSoyad.value!="" ){
+                if(btnHesapla.value=="Hesapla")
+                hesapla();
+                else temizle();
+              
+    
+            }
+
+        }
+
+        function hesapla(){
+          
+            sonucYeri.style.display="inline";
+
+            var bolunmusYil =String(dtpDoguömTarihi.value).split("-");
+            var gun = bolunmusYil[2];
+            var ay = bolunmusYil[1];
+            var yil = bolunmusYil[0];
+            
+
+
+            var tarih =  new Date();
+            var bugunYil = tarih.getFullYear();
+            var bugunAy = tarih.getMonth();
+            var bugunGun = tarih.getDay();
+           
+            var yasi = bugunYil-yil;
+            if(bugunAy<ay-1){
+                yasi--;
+
+            }
+
+            else if(bugunAy==ay-1 && bugunGun<gun-1){
+                yasi--;
+
+            } 
+
+            sonuc.value= yasi;
+
+            btnHesapla.value="Temizle";
+
+            
+
+            
+        }
+
+        function temizle(){
+            sonucYeri.style.display="none";
+            txtAd.value="";
+            txtAd.focus();
+            txtSoyad.value="";
+            dtpDoguömTarihi.value="2000-01-01";
+            btnHesapla.value="Hesapla";
+            
+
+        }
+
+    </script>
+    
+</body>
+</html>
